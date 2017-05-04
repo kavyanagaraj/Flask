@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Success</title>
+    <style>
+      .wrapper{
+        width: 1000px;
+        background-color: rgb(180, 168, 170);
+      }
+      .header{
+        background-color: rgb(115, 93, 103);
+      }
+      .header h2,.header p, .header form{
+        display: inline-block;
+        margin-left: 20px;
+      }
+      .header p{
+        margin-left:50%;
+      }
+      .content input{
+        margin-left: 87%;
+      }
+      .content h3{
+        margin-left: 20px;
+      }
+      .content textarea{
+        width: 95%;
+        margin-left: 20px;
+      }
+      .msg{
+        display: inline;
+        text-align: justify;
+      }
+      .main{
+        width: 85%;
+        margin-left: 8%;
+      }
+      .comm{
+        margin-left: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <h2>CodingDojo Wall</h2>
+        <p><b>Welcome {{session['uname']}}</b></p>
+        <form action="/logout" method="post">
+          <input type="submit" name="submit" value="Logout">
+        </form>
+      </div>
+      <div class="content">
+        <h3>Post a message</h3>
+        <form action="/postm" method="post">
+          <textarea name="message" rows="8" cols="70"></textarea>
+          <input type="submit" name="mess" value="Post a message">
+        </form>
+      </div>
+      <div class="main">
+        {% for msg in msgs: %}
+        <div>
+          <p class = "msg"><b>{{msg['full_name']}}</b></p>
+          <p class = "msg">{{ msg['date'] }}</p>
+          {% if session['uid'] == msg['muid']%}
+            <a href="/deletecomm/{{msg['muid']}}">Delete Message</a>
+          {% endif %}
+          <p>{{ msg['message'] }}</p>
+        </div>
+          <div class = "comm">
+          {% for com in comm: %}
+            {% if com['cmsgid'] == msg['mid']%}
+              <p class = "msg"><b>{{com['full_name']}}</b></p>
+              <p class = "msg">{{ com['date'] }}</p>
+              <p>{{ com['comtxt'] }}</p>
+            {%endif%}
+          {% endfor %}
+          <p>Post a Comment</p>
+          <form action="/postcom" method="post">
+            <textarea name="commenttxt" rows="4" cols="60"></textarea>
+            <input type="hidden" name="msgid" value="{{msg['mid']}}">
+            <input type="submit" name="commentpost" value="Post a comment">
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
