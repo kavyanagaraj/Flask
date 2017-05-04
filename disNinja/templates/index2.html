@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Disappearing Ninja</title>
+  </head>
+  <body>
+    {% if phrase == "allninjas" %}
+      <img src="{{ url_for('static', filename='Ninjas/tmnt.png') }}">
+    {% elif phrase == "blue" %}
+      <img src="{{ url_for('static', filename='Ninjas/leonardo.jpg') }}">
+    {% elif phrase == "orange" %}
+      <img src="{{ url_for('static', filename='Ninjas/michelangelo.jpg') }}">
+    {% elif phrase == "red" %}
+      <img src="{{ url_for('static', filename='Ninjas/raphael.jpg') }}">
+    {% elif phrase == "purple" %}
+      <img src="{{ url_for('static', filename='Ninjas/donatello.jpg') }}">
+    {% else %}
+      <img src="{{ url_for('static', filename='Ninjas/notapril.jpg') }}">
+    {% endif %}
+  </body>
+</html>
